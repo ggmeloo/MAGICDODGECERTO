@@ -248,7 +248,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      mina-explodindo6_0: -2999271517781217727
+      mina-explodindo6_1: -1986957379731210238
+      mina-explodindo6_2: 6972225160918702208
+      mina-explodindo6_3: -5921801461867919207
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

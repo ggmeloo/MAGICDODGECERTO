@@ -1,4 +1,4 @@
-// PlayerShooting.cs (VERSÃO FINAL)
+// PlayerShooting.cs (MODIFICADO PARA USAR UM BOTÃO)
 using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
@@ -31,9 +31,20 @@ public class PlayerShooting : MonoBehaviour
         currentShootingMode = ShootingMode.Right;
     }
 
+    // O Update() não precisa mais verificar a tecla Space.
+    // A lógica de tiro será chamada pelo botão.
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time >= nextFireTime)
+        // Vazio por enquanto, ou você pode adicionar a lógica de tiro contínuo aqui (veja a dica extra abaixo)
+    }
+
+    // CRIAMOS ESTA NOVA FUNÇÃO PÚBLICA
+    // É ela que o botão vai chamar quando for pressionado.
+    public void TryToShoot()
+    {
+        // A verificação da cadência de tiro continua aqui.
+        // Isso impede que o jogador atire mais rápido que o permitido, mesmo que clique várias vezes.
+        if (Time.time >= nextFireTime)
         {
             nextFireTime = Time.time + (1f / currentFireRate);
             Shoot();
@@ -42,6 +53,7 @@ public class PlayerShooting : MonoBehaviour
 
     public void SetShootingModeAndBullet(PowerType powerType, GameObject newBulletPrefab, float newFireRate)
     {
+        // ... (o resto do seu código permanece igual)
         currentBulletPrefab = newBulletPrefab != null ? newBulletPrefab : defaultBulletPrefab;
         currentFireRate = newFireRate > 0 ? newFireRate : defaultFireRate;
 
@@ -61,8 +73,10 @@ public class PlayerShooting : MonoBehaviour
                 break;
         }
     }
+
     public void ApplyWaveShootingSetup(ShootingMode newMode, GameObject newBulletPrefab, float newFireRate)
     {
+        // ... (o resto do seu código permanece igual)
         currentShootingMode = newMode;
         currentBulletPrefab = newBulletPrefab != null ? newBulletPrefab : defaultBulletPrefab;
         currentFireRate = newFireRate > 0 ? newFireRate : defaultFireRate;
@@ -72,6 +86,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void Shoot()
     {
+        // ... (o resto do seu código permanece igual)
         if (currentBulletPrefab == null || firePoint == null || playerMovement == null) return;
 
         switch (currentShootingMode)
@@ -92,6 +107,7 @@ public class PlayerShooting : MonoBehaviour
 
     private void FireBulletInDirection(Vector2 direction)
     {
+        // ... (o resto do seu código permanece igual)
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.Euler(0, 0, angle);
         GameObject bulletInstance = Instantiate(currentBulletPrefab, firePoint.position, rotation);

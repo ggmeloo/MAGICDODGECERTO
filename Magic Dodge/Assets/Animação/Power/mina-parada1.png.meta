@@ -173,7 +173,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      mina-parada1_0: -2490735010320827126
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

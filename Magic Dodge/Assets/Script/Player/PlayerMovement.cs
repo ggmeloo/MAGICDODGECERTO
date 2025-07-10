@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     public Vector2 lastMoveDirection { get; private set; }
 
+    [Header("Referências do Joystick")]
+    public Joystick joystick; // Arraste o componente Joystick aqui no Inspector
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,18 +27,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        moveInput = new Vector2(moveX, moveY).normalized;
+        // Usa os eixos do joystick em vez do Input.GetAxisRaw
+        // O joystick já retorna um valor entre -1 e 1, então funciona perfeitamente
+        float moveX = joystick.Horizontal;
+        float moveY = joystick.Vertical;
+        moveInput = new Vector2(moveX, moveY); // A saída do joystick já é um vetor, não precisa normalizar aqui
 
+        // Se o jogador estiver se movendo, atualiza a última direção
         if (moveInput != Vector2.zero)
         {
-            lastMoveDirection = moveInput;
+            lastMoveDirection = moveInput.normalized;
         }
     }
 
     void FixedUpdate()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        // O moveInput do joystick pode não ser normalizado, então normalizamos aqui
+        // para garantir velocidade constante em todas as direções.
+        rb.linearVelocity = moveInput.normalized * moveSpeed;
     }
 }
